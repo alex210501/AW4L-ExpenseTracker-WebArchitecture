@@ -1,0 +1,23 @@
+{
+  "name": "aw4l-expensetracker-webarchitecture",
+  "version": "1.0.0",
+  "description": "Expense tracker API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex210501/AW4L-ExpenseTracker-WebArchitecture.git"
+  },
+  "author": "Alejandro Borbolla",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alex210501/AW4L-ExpenseTracker-WebArchitecture/issues"
+  },
+  "homepage": "https://github.com/alex210501/AW4L-ExpenseTracker-WebArchitecture#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
