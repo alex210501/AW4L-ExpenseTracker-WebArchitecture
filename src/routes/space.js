@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router()
 
-router.get('/', (req, res) => res.send('GET /space'))
-router.post('/', (req, res) => res.send('POST /space'))
-router.get('/:space_id', (req, res) => res.send('GET /space/{space_id}'))
-router.delete('/:space_id', (req, res) => res.send('DELETE /space/{space_id}'))
-router.patch('/:space_id', (req, res) => res.send('PATCH /space/{space_id}'))
+const SpaceController = require('../controllers/space_controller')
+
+
+router.get('/', (req, res) => SpaceController.getSpaces(req, res))
+router.post('/', (req, res) => SpaceController.createSpace(req, res))
+router.get('/:space_id', (req, res) => SpaceController.getSpace(req, res))
+router.delete('/:space_id', (req, res) => SpaceController.deleteSpace(req, res))
+router.patch('/:space_id', (req, res) => SpaceController.updateSpace(req, res))
 
 // Expenses
 router.get('/:space_id/expense', (req, res) => res.send('GET /space/{space_id}/expense'))

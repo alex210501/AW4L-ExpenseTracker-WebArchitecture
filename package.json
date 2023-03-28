@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/alex210501/AW4L-ExpenseTracker-WebArchitecture#readme",
   "dependencies": {
+    "crypto": "^1.0.1",
     "express": "^4.18.2",
     "mysql2": "^3.2.0",
     "nodemon": "^2.0.22",

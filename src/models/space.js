@@ -1,5 +1,7 @@
 const DataTypes = require("sequelize")
 
+const Collaborator = require('../models/collaborator')
+const User = require('../models/user')
 const sequelize = require("../services/database")
 
 
@@ -24,6 +26,20 @@ const Space = sequelize.define('space', {
 }, {
     freezeTableName: true,
     timestamps: false,
+})
+
+// Space.belongsTo(User, { foreignKey: 'space_admin' })
+
+Space.belongsToMany(User, {
+    through: Collaborator,
+    as: 'collaborators_space',
+    foreignKey: 'collaborator_space'
+})
+
+User.belongsToMany(Space, {
+    through: Collaborator, 
+    as: 'collaborators_users',
+    foreignKey: 'collaborator_user'
 })
 
 module.exports = Space
