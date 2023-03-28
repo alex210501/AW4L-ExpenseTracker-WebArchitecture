@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router()
 
-router.post('/login', (req, res) => res.send('POST /login'))
-router.post('/logout', (req, res) => res.send('POST /logout'))
+const AuthenticationController = require("../controllers/authentication_controller")
+
+router.post('/login', (req, res) => AuthenticationController.login(req, res))
+router.post('/logout', (req, res) => AuthenticationController.logout(req, res))
 
 module.exports = router
