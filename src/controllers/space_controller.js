@@ -2,7 +2,7 @@ const generateUUID = require('../services/uuid')
 const Message = require('../models/message')
 const Space = require('../models/space')
 const User = require('../models/user')
-const Collaborator = require('../models/collaborator')
+
 
 const editableSpaceColumns = ['space_name', 'space_description']
 
