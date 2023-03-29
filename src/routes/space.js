@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router()
 
+const CategoryController = require('../controllers/category_controller')
 const ExpenseController = require('../controllers/expense_controller')
 const SpaceController = require('../controllers/space_controller')
 
@@ -25,8 +26,8 @@ router.post('/:space_id/join', (req, res) => res.send('POST /space/{space_id}/jo
 router.post('/:space_id/quit', (req, res) => res.send('POST /space/{space_id}/quit'))
 
 // Category
-router.get('/:space_id/category', (req, res) => res.send('GET /space/{space_id}/category'))
-router.post('/:space_id/category', (req, res) => res.send('POST /space/{space_id}/category'))
-router.delete('/:space_id/category/:category_id', (req, res) => res.send('DELETE /space/{space_id}/category/{category_id}'))
+router.get('/:space_id/category', (req, res) => CategoryController.getCategories(req, res))
+router.post('/:space_id/category', (req, res) => CategoryController.createCategory(req, res))
+router.delete('/:space_id/category/:category_id', (req, res) => CategoryController.deleteCategory(req, res))
 
 module.exports = router
