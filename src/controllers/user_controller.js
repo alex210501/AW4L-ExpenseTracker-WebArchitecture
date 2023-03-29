@@ -1,3 +1,5 @@
+const crypto = require('crypto')
+
 const Message = require('../models/message')
 const User = require('../models/user')
 
@@ -28,7 +30,7 @@ class UserController {
             user_lastname,
             user_firstname,
             user_email,
-            user_password
+            user_password: crypto.createHash('sha256').update(user_password).digest('hex')
         }).then((result) => {
             const { user_password: _, ...res_json } = result.dataValues
             res.json(res_json)

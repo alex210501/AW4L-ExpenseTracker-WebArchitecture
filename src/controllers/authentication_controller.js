@@ -1,3 +1,5 @@
+const crypto = require('crypto')
+
 const { generateToken } = require('../modules/authentication_tools')
 const Message = require('../models/message')
 const Collaborator = require("../models/collaborator")
@@ -14,7 +16,9 @@ class AuthenticationController {
             },
             attributes: ['user_password'],
         }).then((result) => {
-            if (password == result.user_password) {
+            const hashed_password = crypto.createHash('sha256').update(password).digest('hex')
+
+            if (hashed_password == result.user_password) {
                 res.json({token: generateToken(username)})
             } else {
                 res.status(401).json(new Message('Authentication failed!'))
