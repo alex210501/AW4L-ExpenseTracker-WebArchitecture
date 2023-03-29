@@ -2,20 +2,11 @@ const generateUUID = require('../services/uuid')
 const Message = require('../models/message')
 const Space = require('../models/space')
 const User = require('../models/user')
-
+const { removeCollaboratorsSpaceFromResults } = require('../modules/space_tools')
 
 const editableSpaceColumns = ['space_name', 'space_description']
 
 class SpaceController {
-    static cleanCollaborators(collaborators) {
-        var users = []
-        
-        for (let user of collaborators) {
-            users.push(user.dataValues.user_username)
-        }
-        
-        return users
-    }
 
     static getSpaces(req, res) {
         Space.findAll().then((result) => res.json(result))
@@ -43,19 +34,18 @@ class SpaceController {
             },
             include: [{
                 model: User,
-                required: true,
                 as: 'collaborators_space',
                 attributes: ['user_username'],
-                required: true,
             }]
-        }).then((result) =>{
+        }).then((result) => {
             if (result == null) {
                 res.status(404).json(new Message(`Space ${space_id} not found!`))
             } else {
-                res.json(result)
+                const formattedResult = removeCollaboratorsSpaceFromResults(result)
+                res.json(formattedResult)
             }
         })
-        .catch((err) => res.json(new Message(err)))
+        // .catch((err) => res.json(new Message(err)))
     }
 
     static deleteSpace(req, res) {
