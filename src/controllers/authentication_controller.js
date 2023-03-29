@@ -1,3 +1,4 @@
+const { generateToken } = require('../modules/authentication_tools')
 const Message = require('../models/message')
 const Collaborator = require("../models/collaborator")
 const User = require("../models/user")
@@ -14,19 +15,17 @@ class AuthenticationController {
             attributes: ['user_password'],
         }).then((result) => {
             if (password == result.user_password) {
-                res.json(new Message('Authentificated!'))
+                res.json({token: generateToken(username)})
             } else {
                 res.status(401).json(new Message('Authentication failed!'))
             }
         }).catch((error) => {
             res.status(404).json(new Message(`User ${username} does not exists!`))
         })
-        
-        // res.json(new Message('Login'))
     }
 
     static logout(req, res) {
-        console.log(req.body)
+        console.log(req.username)
     
         res.json(new Message('Logout'))
     }
