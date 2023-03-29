@@ -1,3 +1,4 @@
+var cors = require('cors')
 const express = require('express')
 
 const sequilize = require('./services/database')
@@ -15,6 +16,7 @@ const user_management_routes = require('./routes/user_management')
 const app = express()
 const port = 8080
 
+app.use(cors())
 app.use(express.json())
 app.use('/auth', authentication)
 app.use('/space', space)

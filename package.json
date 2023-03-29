@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/alex210501/AW4L-ExpenseTracker-WebArchitecture#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",

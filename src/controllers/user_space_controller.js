@@ -78,14 +78,16 @@ class UserSpaceController {
 
     static joinSpace(req, res) {
         const spaceId = req.params.space_id
+        const username = req.username
 
-        UserSpaceController._insertUserSpace(req, res, spaceId, 'alex210501')
+        UserSpaceController._insertUserSpace(req, res, spaceId, username)
     }
 
     static quitSpace(req, res) {
         const spaceId = req.params.space_id
+        const username = req.username
 
-        UserSpaceController._deleteUserSpace(req, res, spaceId, 'alex210501')
+        UserSpaceController._deleteUserSpace(req, res, spaceId, username)
     }
 }
 

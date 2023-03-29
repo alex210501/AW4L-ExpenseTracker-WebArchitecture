@@ -1,4 +1,5 @@
 const generateUUID = require('../services/uuid')
+const Collaborator = require('../models/collaborator')
 const Message = require('../models/message')
 const Space = require('../models/space')
 const User = require('../models/user')
@@ -7,20 +8,65 @@ const { removeCollaboratorsSpaceFromResults } = require('../modules/space_tools'
 const editableSpaceColumns = ['space_name', 'space_description']
 
 class SpaceController {
+    static _formatCollaborators(collaborators) {
+        const formatedCollaborators = []
+        console.log('yop ', collaborators)
+        for (const collaborator of collaborators) {
+            console.log('hey', collaborator.dataValues.user_username)
+            formatedCollaborators.push(collaborator.dataValues.user_username)
+        }
+
+        return formatedCollaborators
+    }
+
+    static _formatSpaces(result) {
+        let spaces = []
+
+        for (const user of result) {
+            for (const space of user.dataValues.collaborators_users) {
+                const formattedSpace = {
+                    space_id: space.space_id, 
+                    space_name: space.space_name, 
+                    space_description: space.space_description,
+                    collaborators: SpaceController._formatCollaborators(space.collaborators_space),
+                }
+
+                spaces.push(formattedSpace)
+            }
+        }
+
+        return spaces
+    }
 
     static getSpaces(req, res) {
-        Space.findAll().then((result) => res.json(result))
-        .catch((err) => res.json(new Message(err)))
+        const username = req.username
+
+        User.findAll({
+            where: { user_username: username },
+            attributes: [],
+            include: [{
+                model: Space,
+                as: 'collaborators_users',
+                include: [{
+                    model: User,
+                    as: 'collaborators_space',
+                    attributes: ['user_username'],
+                }]
+            }],
+        }).then((result) => {
+            res.json(SpaceController._formatSpaces(result))
+        }).catch((err) => res.json(new Message(err)))
     }
     
     static createSpace(req, res) {
-        const {space_name, space_description, space_admin} = req.body
+        const username = req.username
+        const { space_name, space_description } = req.body
 
         Space.create({
             space_id: generateUUID(),
             space_name,
             space_description,
-            space_admin,
+            space_admin: username,
         }).then((result) => res.json(result.dataValues))
         .catch((err) => res.json(new Message(err)))
     }
