@@ -14,11 +14,11 @@ function removeCollaboratorsSpaceFromResults(result) {
 
     return {
         ...resultWithoutCollaboratorsSpace,
-        collaborators: collaborators,
+        collaborators_space: collaborators,
     }
 }
 
 module.exports = {
     cleanCollaborators,
-    removeCollaboratorsSpaceFromResults   
+    removeCollaboratorsSpaceFromResults
 }

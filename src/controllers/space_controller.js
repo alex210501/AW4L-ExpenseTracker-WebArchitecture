@@ -10,9 +10,8 @@ const editableSpaceColumns = ['space_name', 'space_description']
 class SpaceController {
     static _formatCollaborators(collaborators) {
         const formatedCollaborators = []
-        console.log('yop ', collaborators)
+
         for (const collaborator of collaborators) {
-            console.log('hey', collaborator.dataValues.user_username)
             formatedCollaborators.push(collaborator.dataValues.user_username)
         }
 
@@ -28,7 +27,7 @@ class SpaceController {
                     space_id: space.space_id, 
                     space_name: space.space_name, 
                     space_description: space.space_description,
-                    collaborators: SpaceController._formatCollaborators(space.collaborators_space),
+                    space_collaborators: SpaceController._formatCollaborators(space.collaborators_space),
                 }
 
                 spaces.push(formattedSpace)

@@ -29,8 +29,6 @@ class AuthenticationController {
     }
 
     static logout(req, res) {
-        console.log(req.username)
-    
         res.json(new Message('Logout'))
     }
 }
