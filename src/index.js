@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var cors = require('cors')
 const express = require('express')
 
