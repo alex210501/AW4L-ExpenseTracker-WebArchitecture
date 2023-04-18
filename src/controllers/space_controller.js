@@ -66,8 +66,30 @@ class SpaceController {
             space_name,
             space_description,
             space_admin: username,
-        }).then((result) => res.json(result.dataValues))
-        .catch((err) => res.json(new Message(err)))
+        }).then((resultSpace) => {
+            const spaceId = resultSpace.dataValues.space_id;
+
+            Collaborator.findOrCreate({
+                defaults: {
+                    collaborator_id: generateUUID(),
+                    collaborator_space: spaceId,
+                    collaborator_user: username,
+                },
+                where: {
+                    collaborator_space: spaceId, 
+                    collaborator_user: username,
+                },
+            }, ).then((resultCollaborator) => {
+                const [outputCollaborator, _] = resultCollaborator
+                const output = {
+                    ...resultSpace.dataValues, 
+                    space_collaborators: [outputCollaborator.collaborator_user],
+                }
+    
+                res.json(output)
+            }).catch(err => res.status(500).json(new Message(err)))
+        })
+        .catch((err) => res.status(500).json(new Message(err)))
     }
 
     static getSpace(req, res) {
