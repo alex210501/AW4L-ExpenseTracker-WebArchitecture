@@ -15,13 +15,14 @@ class ExpenseController {
     }
 
     static createExpenses(req, res) {
+        const username = req.username
         const spaceId = req.params.space_id
         const parameters = req.body
 
         Expense.create({ 
             expense_id: generateUUID(), 
             expense_space: spaceId,
-            expense_paid_by: 'alex210501',
+            expense_paid_by: username,
             ...parameters 
         })
             .then((result) => res.json(result))

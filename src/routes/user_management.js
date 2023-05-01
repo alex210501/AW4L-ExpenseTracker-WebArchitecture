@@ -5,7 +5,7 @@ const { isTokenValid } = require('../modules/authentication_tools')
 const UserController = require('../controllers/user_controller')
 
 router.get('/', isTokenValid, UserController.getUsers)
-router.post('/', isTokenValid, UserController.createUser)
+router.post('/', UserController.createUser)
 router.delete('/:username', isTokenValid, UserController.deleteUser)
 
 module.exports = router
