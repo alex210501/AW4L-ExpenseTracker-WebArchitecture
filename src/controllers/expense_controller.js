@@ -9,7 +9,10 @@ class ExpenseController {
     static getExpenses(req, res) {
         const spaceId = req.params.space_id
 
-        Expense.findAll({ where: { expense_space: spaceId} })
+        Expense.findAll({ 
+            where: { expense_space: spaceId},
+            order: [['expense_date', 'DESC']],
+         })
             .then((result) => res.json(result))
             .catch((err) => res.json(new Message(err)))
     }
@@ -18,7 +21,6 @@ class ExpenseController {
         const username = req.username
         const spaceId = req.params.space_id
         const parameters = req.body
-        console.log(new Date().toLocaleString());
 
         Expense.create({ 
             expense_id: generateUUID(), 
