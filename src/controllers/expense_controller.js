@@ -18,11 +18,13 @@ class ExpenseController {
         const username = req.username
         const spaceId = req.params.space_id
         const parameters = req.body
+        console.log(new Date().toLocaleString());
 
         Expense.create({ 
             expense_id: generateUUID(), 
             expense_space: spaceId,
             expense_paid_by: username,
+            expense_date: new Date(),
             ...parameters 
         })
             .then((result) => res.json(result))
