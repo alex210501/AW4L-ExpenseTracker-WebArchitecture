@@ -27,6 +27,7 @@ class SpaceController {
                     space_id: space.space_id, 
                     space_name: space.space_name, 
                     space_description: space.space_description,
+                    space_admin: space.space_admin,
                     space_collaborators: SpaceController._formatCollaborators(space.collaborators_space),
                 }
 
